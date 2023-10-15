@@ -7,7 +7,7 @@ import { FreeMode } from 'swiper';
 
 import PlayPause from './PlayPause';
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
-import { useGetTopChartsQuery } from '../redux/services/shazamCore';
+import { useGetTopChartsQuery, useGetSongsByGenreQuery } from '../redux/services/shazamCore';
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -43,15 +43,16 @@ const TopChartCard = ({ song, i, isPlaying, activeSong, handlePauseClick, handle
 const TopPlay = () => {
   const dispatch = useDispatch();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
-  const { data } = useGetTopChartsQuery();
-  console.log(data, "TOP CHARTS")
+  const { data } = useGetSongsByGenreQuery('House');
+  // const { data } = useGetTopChartsQuery();
   const divRef = useRef(null);
 
   useEffect(() => {
     divRef.current.scrollIntoView({ behavior: 'smooth' });
   });
 
-  const topPlays = data?.slice(0, 5);
+  const topPlays = data;
+  console.log(topPlays, 'TOP PLAYS1')
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
@@ -73,7 +74,7 @@ const TopPlay = () => {
         </div>
 
         <div className="mt-4 flex flex-col gap-1">
-          {topPlays?.map((song, i) => (
+          {topPlays?.tracks?.map((song, i) => (
             <TopChartCard
               key={song.key}
               song={song}
@@ -104,7 +105,7 @@ const TopPlay = () => {
           modules={[FreeMode]}
           className="mt-4"
         >
-          {topPlays?.slice(0, 5).map((artist) => (
+          {topPlays?.tracks?.slice(0, 5).map((artist) => (
             <SwiperSlide
               key={artist?.key}
               style={{ width: '25%', height: 'auto' }}
