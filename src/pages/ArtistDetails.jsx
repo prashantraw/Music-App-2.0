@@ -22,7 +22,7 @@ const ArtistDetails = () => {
       />
 
       <RelatedSongs
-        data={artistData?.data[0].views['top-songs']?.data}
+        data={artistData}
         artistId={artistId}
         isPlaying={isPlaying}
         activeSong={activeSong}

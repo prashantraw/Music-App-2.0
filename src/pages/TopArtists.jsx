@@ -6,6 +6,7 @@ import { useGetTopChartsQuery, useGetSongsByGenreQuery } from '../redux/services
 const TopArtists = () => {
   const { data, isFetching, error } = useGetSongsByGenreQuery('DANCE');
   // const { data, isFetching, error } = useGetTopChartsQuery();
+  console.log(data, "TOP ARTISTS")
 
   if (isFetching) return <Loader title="Loading artists..." />
 

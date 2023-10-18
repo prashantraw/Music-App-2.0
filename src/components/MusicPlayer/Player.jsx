@@ -2,6 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 
 const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate, onLoadedData, repeat }) => {
+  console.log(activeSong, "ACTIVE SONG")
   const ref = useRef(null);
   // eslint-disable-next-line no-unused-expressions
   if (ref.current) {
@@ -22,7 +23,7 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
 
   return (
     <audio
-      src={activeSong?.hub?.actions[1]?.uri}
+      src={activeSong?.hub?.actions[1]?.uri ? activeSong?.hub?.actions[1]?.uri : activeSong?.ringtone }
       ref={ref}
       loop={repeat}
       onEnded={onEnded}
